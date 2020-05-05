@@ -6,7 +6,7 @@ import AppError from '@shared/errors/AppError';
 
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
-interface RequestDTO {
+interface IRequestDTO {
   provider_id: string;
   date: Date;
 }
@@ -15,7 +15,7 @@ class CreateAppointmentService {
   public async execute({
     date,
     provider_id,
-  }: RequestDTO): Promise<Appointment> {
+  }: IRequestDTO): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
@@ -28,12 +28,10 @@ class CreateAppointmentService {
       throw new AppError('This appointment is already booked');
     }
 
-    const appointment = appointmentsRepository.create({
+    const appointment = await appointmentsRepository.create({
       provider_id,
       date: appointmentDate,
     });
-
-    await appointmentsRepository.save(appointment);
 
     return appointment;
   }
