@@ -8,8 +8,6 @@ import CreateAppointmentService from '@modules/appointments/services/CreateAppoi
 
 const appointmentsRouter = Router();
 
-const appointmentsRepository = new AppointmentsRepository();
-
 appointmentsRouter.use(authMiddleware);
 
 // appointmentsRouter.get('/', async (request, response) => {
@@ -23,6 +21,7 @@ appointmentsRouter.post('/', async (request, response) => {
 
   const parsedDate = parseISO(date);
 
+  const appointmentsRepository = new AppointmentsRepository();
   const createAppointment = new CreateAppointmentService(
     appointmentsRepository,
   );
