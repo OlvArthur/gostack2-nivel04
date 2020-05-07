@@ -33,7 +33,7 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    delete user.password;
+    // delete user.password;
 
     return user;
   }

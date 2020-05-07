@@ -39,7 +39,7 @@ class AuthenticateUserService {
     const checkPassword = await compare(password, user.password);
 
     if (!checkPassword) {
-      throw Error('Login failed: Invalid username or password');
+      throw new Error('Login failed: Invalid username or password');
     }
 
     const { expiresIn, secret } = authConfig.jwt;
