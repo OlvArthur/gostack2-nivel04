@@ -25,10 +25,9 @@
 
 **RN**
 
-\_ O usário não pode alterar seu email para um email já utilizado;
-
-- Para atualizar sua senha, o usuário deve informar a senha antiga;
+- O usário não pode alterar seu email para um email já utilizado;
 - Para atualizar sua senha, o usuário precisa confirmar sua senha;
+- Para atualizar sua senha, o usuário deve informar a senha antiga;
 
 # Painel do prestador
 
