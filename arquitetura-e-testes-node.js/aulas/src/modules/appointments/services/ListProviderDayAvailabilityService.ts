@@ -49,11 +49,11 @@ class ListProviderDayAvailabilityService {
       );
 
       const currentDate = new Date(Date.now());
-      const compareDate = new Date(year, month - 1, day, hour);
+      const appointmentDate = new Date(year, month - 1, day, hour);
 
       return {
         hour,
-        available: !availableHour && !isAfter(currentDate, compareDate),
+        available: !availableHour && isAfter(appointmentDate, currentDate),
       };
     });
 

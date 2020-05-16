@@ -22,26 +22,29 @@ describe('CreateAppointment', () => {
     );
 
     const appointment = await createAppointmentService.execute({
+      user_id: 'user_id',
       date: new Date(),
-      provider_id: '485793874589',
+      provider_id: 'provider_id',
     });
 
     expect(appointment).toHaveProperty('id');
-    expect(appointment.provider_id).toBe('485793874589');
+    expect(appointment.provider_id).toBe('provider_id');
   });
 
   it('should not be able to create two appointments at the same time', async () => {
     const appointmentDate = new Date(2020, 4, 10, 11);
 
     await createAppointmentService.execute({
+      user_id: 'user_id',
       date: appointmentDate,
-      provider_id: '485793874589',
+      provider_id: 'provider_id',
     });
 
     await expect(
       createAppointmentService.execute({
+        user_id: 'user_id',
         date: appointmentDate,
-        provider_id: '485793874589',
+        provider_id: 'provider_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
