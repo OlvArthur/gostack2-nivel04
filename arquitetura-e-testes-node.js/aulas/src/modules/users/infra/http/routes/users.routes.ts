@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import authMiddleware from '@modules/users/infra/http/middlewares/auth';
 
@@ -14,15 +15,17 @@ const upload = multer(uploadConfig);
 const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
 
-// usersRouter.get('/', async (request, response) => {
-//   const userRepository = getRepository(User);
-
-//   const users = await userRepository.find();
-
-//   return response.json(users);
-// });
-
-usersRouter.post('/', usersController.create);
+usersRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      name: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+    }),
+  }),
+  usersController.create,
+);
 
 usersRouter.patch(
   '/avatar',

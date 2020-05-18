@@ -29,7 +29,7 @@ class ResetPasswordService {
     const userToken = await this.userTokensRepository.findByToken(token);
 
     if (!userToken || differenceInHours(Date.now(), userToken.created_at) > 2) {
-      throw new AppError('User token is invalid or not exisitent');
+      throw new AppError('Reset Password Token expired');
     }
 
     // Alternativily
