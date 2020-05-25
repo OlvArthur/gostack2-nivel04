@@ -1,26 +1,19 @@
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakehashProvider';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import AppError from '@shared/errors/AppError';
+import 'dotenv/config';
 
 import AuthenticateUserService from './AuthenticateUserService';
-import CreateUserService from './CreateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
 let authenticateUserService: AuthenticateUserService;
-let createUserService: CreateUserService;
 
 describe('AuthenticateUser', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
-
     authenticateUserService = new AuthenticateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
-
-    createUserService = new CreateUserService(
       fakeUsersRepository,
       fakeHashProvider,
     );
@@ -36,7 +29,7 @@ describe('AuthenticateUser', () => {
   });
 
   it('should not be able to authenticate with wrong password', async () => {
-    await createUserService.execute({
+    await fakeUsersRepository.create({
       email: 'arthur@inobras.co',
       name: 'Arthur',
       password: '1234567',
@@ -51,7 +44,7 @@ describe('AuthenticateUser', () => {
   });
 
   it('should be able to authenticate', async () => {
-    await createUserService.execute({
+    await fakeUsersRepository.create({
       email: 'arthur@inobras.co',
       name: 'Arthur',
       password: '123456',
