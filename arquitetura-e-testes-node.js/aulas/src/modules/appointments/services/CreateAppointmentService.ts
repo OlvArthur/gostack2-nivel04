@@ -44,7 +44,9 @@ class CreateAppointmentService {
 
     const currentDate = new Date(Date.now());
 
-    if (isBefore(appointmentDate, new Date(`${currentDate} UTC`))) {
+    // new Date(`${currentDate} UTC`),
+
+    if (isBefore(appointmentDate, new Date(`${currentDate}`))) {
       throw new AppError('Past dates are not available');
     }
 
